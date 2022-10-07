@@ -1,2 +1,17 @@
 <h1>{{ title }}</h1>
+<div class="btn-container">
+  <button>Generar reporte</button>
+</div>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Pokemon</th>
+    <th>Info URL</th>
+  </tr>
+  <tr *ngFor="let pokemon of pokemonList; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ pokemon.name }}</td>
+    <td><a [href]="pokemon.url" target="_blank">{{ pokemon.url }}</a></td>
+  </tr>
+</table>
 <router-outlet></router-outlet>
