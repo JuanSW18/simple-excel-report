@@ -22,4 +22,22 @@ export class ExcelReportService {
     
     XLSX.writeFileXLSX(workbook, filename, {});
   }
+
+  generateReportWithDict(customHeaders: any[], data: any, filename: string) {
+    let worksheetData: any[] = [];
+
+    Object(data).forEach( (item: any) => {
+      let worksheetItem = Object();
+      customHeaders.forEach( header => {
+        worksheetItem[header.name] = item[header.key];
+      })
+      worksheetData.push(worksheetItem)
+    })
+    
+    // excel file
+    let workbook = XLSX.utils.book_new();
+    let worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Hoja 1")
+    XLSX.writeFileXLSX(workbook, filename, {});
+  }
 }
