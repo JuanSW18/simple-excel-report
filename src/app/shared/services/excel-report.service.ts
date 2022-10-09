@@ -40,4 +40,14 @@ export class ExcelReportService {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Hoja 1")
     XLSX.writeFileXLSX(workbook, filename, {});
   }
+
+  generateReportWithAdapter(headers: string[], data: any, filename: string) {
+    let workbook = XLSX.utils.book_new();
+    let worksheet = XLSX.utils.json_to_sheet([], { header: headers });
+
+    XLSX.utils.sheet_add_json(worksheet, data, { origin: 'A2', skipHeader: true })
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Hoja 1")
+    XLSX.writeFileXLSX(workbook, filename);
+  }
 }
