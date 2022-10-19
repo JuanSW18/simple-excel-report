@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { IPokemonReport } from '../adapters/pokemon-report.class';
+import { ICustomHeader } from '../interfaces/custom-header.interface';
+import { IPokemonInfo } from '../interfaces/pokemon-response.interface';
 
 
 @Injectable({
@@ -9,7 +12,7 @@ export class ExcelReportService {
 
   constructor() { }
 
-  generateDefaultReport(data: any, filename: string) {
+  generateDefaultReport(data: IPokemonInfo[], filename: string) {
     let workbook = XLSX.utils.book_new();
     let worksheet = XLSX.utils.json_to_sheet(data);
 
@@ -23,7 +26,7 @@ export class ExcelReportService {
     XLSX.writeFileXLSX(workbook, filename, {});
   }
 
-  generateReportWithDict(customHeaders: any[], data: any, filename: string) {
+  generateReportWithDict(customHeaders: ICustomHeader[], data: IPokemonInfo[], filename: string) {
     let worksheetData: any[] = [];
 
     Object(data).forEach( (item: any) => {
@@ -41,7 +44,7 @@ export class ExcelReportService {
     XLSX.writeFileXLSX(workbook, filename, {});
   }
 
-  generateReportWithAdapter(headers: string[], data: any, filename: string) {
+  generateReportWithAdapter(headers: string[], data: IPokemonReport[], filename: string) {
     let workbook = XLSX.utils.book_new();
     let worksheet = XLSX.utils.json_to_sheet([], { header: headers });
 
